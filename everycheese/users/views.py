@@ -19,24 +19,24 @@ user_detail_view = UserDetailView.as_view()
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
-    fields = ['name', ]
+    fields = ['name', 'bio', ]
 
     # We already imported user in the View code above,
     #   remember?
     model = User
 
-    # Send the User Back to Their Own Page after a 
+    # Send the User Back to Their Own Page after a
     #   successful Update
     def get_success_url(self):
         return reverse('users:detail',
             kwargs={
                 'username': \
                 self.request.user.username}
-                
+
         )
 
     def get_object(self):
-        # Only Get the User Record for the 
+        # Only Get the User Record for the
         #   User Making the Request
         return User.objects.get(
             username=self.request.user.username)
